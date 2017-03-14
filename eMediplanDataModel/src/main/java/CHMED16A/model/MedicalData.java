@@ -1,38 +1,44 @@
 package CHMED16A.model;
 
+import java.util.List;
+
+import CHMED16A.builder.MeasurementListBuilder;
 import CHMED16A.builder.NestedBuilder;
+import CHMED16A.builder.PrivateFieldListBuilder;
+import CHMED16A.builder.RiskCategoryListBuilder;
+import CHMED16A.interfaces.IPrivateFieldsOwner;
 
 public class MedicalData {
 	
-	private String dtLstMen;
-	
-	private String prem;
-	
+	private String dLstMen;
+	private int prem;
 	private String toG;
-	
-	private Iterable<RiskCategory> rG;
-	
-	private Iterable<Measurement> meas;
-	
-	private Iterable<PrivateField> pFields;
+	private List<RiskCategory> rG;
+	private List<Measurement> meas;
+	private List<PrivateField> pFields;
 
-	public MedicalData() {
-		super();
+	public MedicalData(Builder builder) {
+		this.dLstMen = builder.dLstMen;
+		this.prem = builder.prem;
+		this.toG = builder.toG;
+		this.rG = builder.rG;
+		this.meas = builder.meas;
+		this.pFields = builder.pFields;
 	}
 
-	public String getDtLstMen() {
-		return dtLstMen;
+	public String getDLstMen() {
+		return dLstMen;
 	}
 
-	public void setDtLstMen(String dtLstMen) {
-		this.dtLstMen = dtLstMen;
+	public void setDLstMen(String dtLstMen) {
+		this.dLstMen = dtLstMen;
 	}
 
-	public String getPrem() {
+	public int getPrem() {
 		return prem;
 	}
 
-	public void setPrem(String prem) {
+	public void setPrem(int prem) {
 		this.prem = prem;
 	}
 
@@ -44,27 +50,27 @@ public class MedicalData {
 		this.toG = toG;
 	}
 
-	public Iterable<RiskCategory> getrG() {
+	public List<RiskCategory> getrG() {
 		return rG;
 	}
 
-	public void setrG(Iterable<RiskCategory> rG) {
+	public void setrG(List<RiskCategory> rG) {
 		this.rG = rG;
 	}
 
-	public Iterable<Measurement> getMeas() {
+	public List<Measurement> getMeas() {
 		return meas;
 	}
 
-	public void setMeas(Iterable<Measurement> meas) {
+	public void setMeas(List<Measurement> meas) {
 		this.meas = meas;
 	}
 
-	public Iterable<PrivateField> getpFields() {
+	public List<PrivateField> getpFields() {
 		return pFields;
 	}
 
-	public void setpFields(Iterable<PrivateField> pFields) {
+	public void setpFields(List<PrivateField> pFields) {
 		this.pFields = pFields;
 	}
 
@@ -72,32 +78,46 @@ public class MedicalData {
 		return new Builder();
 	}
 
-	public static final class Builder extends NestedBuilder<Builder, Measurement> {
-		private int type;
-		private String val;
-		private int unit;
+	public static final class Builder extends NestedBuilder<Patient.Builder, MedicalData> implements IPrivateFieldsOwner<Patient.Builder> {
+		private String dLstMen;
+		private int prem;
+		private String toG;
+		private List<RiskCategory> rG;
+		private List<Measurement> meas;
+		private List<PrivateField> pFields;
 
 		private Builder() {
 		}
 
-		public Builder withType(int type) {
-			this.type = type;
+		public Builder withFirstDayOfLastMenstruation(String dLstMen) {
+			this.dLstMen = dLstMen;
 			return this;
 		}
 
-		public Builder withValue(String value) {
-			this.val = value;
+		public Builder withPremature(int prem) {
+			this.prem = prem;
 			return this;
 		}
 
-		public Builder withUnit(int unit) {
-			this.unit = unit;
+		public Builder withTimeOfGestation(String toG) {
+			this.toG = toG;
 			return this;
 		}
+		
+		public RiskCategoryListBuilder addRiskCategories() {			
+			return RiskCategoryListBuilder.newBuilder().withParentBuilder(this);
+		}
+		
+		public MeasurementListBuilder addMeasurements() {			
+			return MeasurementListBuilder.newBuilder().withParentBuilder(this);
+		}
+		
+		public PrivateFieldListBuilder addPrivateFields() {			
+			return PrivateFieldListBuilder.newBuilder().withParentBuilder(this);
+		}
 
-
-		public Measurement build() {
-			return new Measurement(this);
+		public MedicalData build() {
+			return new MedicalData(this);
 		}
 
 	}

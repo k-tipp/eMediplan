@@ -1,5 +1,8 @@
 package CHMED16A.model;
 
+import CHMED16A.builder.MeasurementListBuilder;
+import CHMED16A.builder.NestedBuilder;
+
 public class Measurement {
 	
 	private int type;
@@ -40,10 +43,11 @@ public class Measurement {
 		return new Builder();
 	}
 
-    public static final class Builder extends NestedBuilder<MedicalData.Builder, Measurement> {
+    public static final class Builder extends NestedBuilder<MeasurementListBuilder, Measurement> {
 		private int type;
 		private String val;
 		private int unit;
+		private MeasurementListBuilder measurementListBuilder;
 
 		private Builder() {
 		}
@@ -63,6 +67,10 @@ public class Measurement {
 			return this;
 		}
 
+		public MeasurementListBuilder addMeasurementToList() {
+			this.measurementListBuilder.addMeasurement(this.build());
+			return this.measurementListBuilder;
+		}
 
 		public Measurement build() {
 			return new Measurement(this);

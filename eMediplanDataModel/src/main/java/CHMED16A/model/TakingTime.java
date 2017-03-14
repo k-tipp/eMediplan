@@ -3,6 +3,7 @@ package CHMED16A.model;
 import CHMED16A.builder.NestedBuilder;
 
 public class TakingTime {
+	
     private int off;
     private int du;
     private double doFrom;
@@ -22,8 +23,58 @@ public class TakingTime {
     public static Builder newBuilder() {
         return new Builder();
     }
+    
+    public int getOffset() {
+		return off;
+	}
 
-    public static final class Builder extends NestedBuilder<Posology.Builder, TakingTime> {
+	public void setOffset(int off) {
+		this.off = off;
+	}
+
+	public int getDuration() {
+		return du;
+	}
+
+	public void setDuration(int du) {
+		this.du = du;
+	}
+
+	public double getDoseFrom() {
+		return doFrom;
+	}
+
+	public void setDoseFrom(double doFrom) {
+		this.doFrom = doFrom;
+	}
+
+	public double getDoseTo() {
+		return doTo;
+	}
+
+	public void setDoseTo(double doTo) {
+		this.doTo = doTo;
+	}
+
+	public double getAmount() {
+		return a;
+	}
+
+	public void setAmount(double a) {
+		this.a = a;
+	}
+
+	public double getMaxAmountPerCycle() {
+		return mA;
+	}
+
+	public void setMaxAmountPerCycle(double mA) {
+		this.mA = mA;
+	}
+
+
+
+	public static final class Builder extends NestedBuilder<Posology.Builder, TakingTime> {
         private int off;
         private int du;
         private double doFrom;
@@ -34,32 +85,32 @@ public class TakingTime {
         private Builder() {
         }
 
-        public Builder withOff(int off) {
+        public Builder withOffset(int off) {
             this.off = off;
             return this;
         }
 
-        public Builder withDu(int du) {
+        public Builder withDuration(int du) {
             this.du = du;
             return this;
         }
 
-        public Builder withDoFrom(double doFrom) {
+        public Builder withDoseFrom(double doFrom) {
             this.doFrom = doFrom;
             return this;
         }
 
-        public Builder withDoTo(double doTo) {
+        public Builder withDoseTo(double doTo) {
             this.doTo = doTo;
             return this;
         }
 
-        public Builder withA(double a) {
+        public Builder withAmount(double a) {
             this.a = a;
             return this;
         }
 
-        public Builder withMA(double mA) {
+        public Builder withMaxAmountPerCycle(double mA) {
             this.mA = mA;
             return this;
         }

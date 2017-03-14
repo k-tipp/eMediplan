@@ -1,15 +1,16 @@
 package CHMED16A.model;
 
 import CHMED16A.builder.NestedBuilder;
+import CHMED16A.builder.RiskCategoryListBuilder;
 
 import java.util.Collection;
 
 public class RiskCategory {
 
 	private int id;
-	
+
 	private Collection<Integer> r;
-	
+
 	public RiskCategory(Builder builder) {
 		this.id = builder.id;
 		this.r = builder.r;
@@ -35,23 +36,29 @@ public class RiskCategory {
 		return new Builder();
 	}
 
-	public static final class Builder extends NestedBuilder<MedicalData.Builder, RiskCategory> {
+	public static final class Builder extends NestedBuilder<RiskCategoryListBuilder, RiskCategory> {
 		private int id;
-        private Collection<Integer> r;
+		private Collection<Integer> r;
+		private RiskCategoryListBuilder riskCategoryListBuilder;
 
-        private Builder() {
+		private Builder() {
 		}
 
 		public Builder withId(int id) {
-            this.id = id;
-            return this;
-        }
+			this.id = id;
+			return this;
+		}
 
-        public Collection<Integer> addRisk(int risk){
-            this.r.add(risk);
-            return this.r;
-        }
+		public Builder addRisk(int risk) {
+			this.r.add(risk);
+			return this;
+		}
 
+		public RiskCategoryListBuilder addRiskCategoryToList() {
+			this.riskCategoryListBuilder.addRiskCategory(this.build());
+			return this.riskCategoryListBuilder;
+		}
+		
 		public RiskCategory build() {
 			return new RiskCategory(this);
 		}
