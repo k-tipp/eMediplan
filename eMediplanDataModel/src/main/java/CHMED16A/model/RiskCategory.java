@@ -5,6 +5,7 @@ import CHMED16A.builder.RiskCategoryListBuilder;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RiskCategory {
@@ -44,7 +45,6 @@ public class RiskCategory {
 	public static final class Builder extends NestedBuilder<RiskCategoryListBuilder, RiskCategory> {
 		private int id;
 		private List<Integer> r;
-		private RiskCategoryListBuilder riskCategoryListBuilder;
 
 		private Builder() {
 		}
@@ -55,13 +55,15 @@ public class RiskCategory {
 		}
 
 		public Builder addRisk(int risk) {
+			if(this.r == null)
+				this.r = new ArrayList<>();
 			this.r.add(risk);
 			return this;
 		}
 
 		public RiskCategoryListBuilder addRiskCategoryToList() {
-			this.riskCategoryListBuilder.addRiskCategory(this.build());
-			return this.riskCategoryListBuilder;
+			this.parent.addRiskCategory(this.build());
+			return this.parent;
 		}
 		
 		public RiskCategory build() {

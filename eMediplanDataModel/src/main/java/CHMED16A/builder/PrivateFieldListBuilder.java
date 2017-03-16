@@ -27,6 +27,8 @@ public class PrivateFieldListBuilder extends NestedBuilder<MedicalData.Builder, 
 	}
 
 	public PrivateFieldListBuilder addPrivateField(PrivateField privateField) {
+		if(this.privateFieldList == null)
+			withNewList();
 		this.privateFieldList.add(privateField);
 		return this;
 	}

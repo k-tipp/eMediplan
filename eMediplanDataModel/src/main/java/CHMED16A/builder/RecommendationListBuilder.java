@@ -28,6 +28,8 @@ public class RecommendationListBuilder extends NestedBuilder<Medication.Builder,
 	}
 
 	public RecommendationListBuilder addRecommendation(Recommendation recommendation) {
+		if(this.recommendationList == null)
+			withNewList();
 		this.recommendationList.add(recommendation);
 		return this;
 	}

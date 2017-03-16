@@ -6,7 +6,7 @@ import java.util.List;
 import CHMED16A.model.MedicalData;
 import CHMED16A.model.RiskCategory;
 
-public class RiskCategoryListBuilder extends NestedBuilder<MedicalData.Builder, List<RiskCategory>>{
+public class RiskCategoryListBuilder extends NestedBuilder<MedicalData.Builder, RiskCategoryListBuilder>{
 
 	private List<RiskCategory> riskCategoryList;
 
@@ -28,6 +28,8 @@ public class RiskCategoryListBuilder extends NestedBuilder<MedicalData.Builder, 
 	}
 
 	public RiskCategoryListBuilder addRiskCategory(RiskCategory riskCategory) {
+		if(this.riskCategoryList == null)
+			withNewList();
 		this.riskCategoryList.add(riskCategory);
 		return this;
 	}

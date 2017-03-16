@@ -5,6 +5,7 @@ import CHMED16A.builder.NestedBuilder;
 import CHMED16A.builder.PosologyListBuilder;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Medicament {
@@ -163,7 +164,6 @@ public class Medicament {
 		private int subs;
 		private float nbPack;
 		private List<PrivateField> pFields;
-		private MedicamentListBuilder medicamentListBuilder;
 
 		private Builder() {
 		}
@@ -177,9 +177,14 @@ public class Medicament {
 			this.idType = idType;
 			return this;
 		}
+		
+		public Builder withArrayList(ArrayList<Posology> pos) {
+			this.pos = pos;
+			return this;
+		}
 
 		public PosologyListBuilder posologies() {
-			return PosologyListBuilder.newBuilder();
+			return PosologyListBuilder.newBuilder().withParentBuilder(this);
 		}
 
 		public Builder unit(String unit) {
@@ -234,8 +239,9 @@ public class Medicament {
 		}
 
 		public MedicamentListBuilder addMedicamentToList() {
-			this.medicamentListBuilder.addMedicament(this.build());
-			return this.medicamentListBuilder;
+			Medicament m = this.build();
+			this.parent.addMedicament(m);
+			return this.parent;
 		}
 
 		public Medicament build() {

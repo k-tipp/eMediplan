@@ -2,6 +2,9 @@ package CHMED16A.model;
 
 import CHMED16A.builder.NestedBuilder;
 import CHMED16A.builder.RecommendationListBuilder;
+
+import java.util.ArrayList;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -47,7 +50,6 @@ public class Recommendation {
         private String id;
         private int patAgr;
         private String rmk;
-        private RecommendationListBuilder recommendationListBuilder;
 
         private Builder() {
         }
@@ -61,6 +63,10 @@ public class Recommendation {
             this.patAgr = patAgr;
             return this;
         }
+        
+        public Builder withArrayList(ArrayList<Recommendation> recommendations) {
+        	return this;
+        }
 
         public Builder withRemark(String rmk) {
             this.rmk = rmk;
@@ -68,7 +74,8 @@ public class Recommendation {
         }
 
         public RecommendationListBuilder addRecommendationToList() {
-            return this.recommendationListBuilder;
+        	this.parent.addRecommendation(this.build());
+            return this.parent;
         }
 
         public Recommendation build() {

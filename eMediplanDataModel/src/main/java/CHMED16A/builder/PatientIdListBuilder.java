@@ -29,6 +29,8 @@ public class PatientIdListBuilder extends NestedBuilder<Patient.Builder, List<Pa
 	}
 
 	public PatientIdListBuilder addPatientId(PatientId patientId) {
+		if(this.patientIdList == null)
+			withNewList();
 		this.patientIdList.add(patientId);
 		return this;
 	}

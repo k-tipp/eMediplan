@@ -29,6 +29,8 @@ public class TakingTimeListBuilder extends NestedBuilder<Posology.Builder, List<
 	}
 
 	public TakingTimeListBuilder addTakingTime(TakingTime takingTime) {
+		if(this.takingTimeList == null)
+			withNewList();
 		this.takingTimeList.add(takingTime);
 		return this;
 	}

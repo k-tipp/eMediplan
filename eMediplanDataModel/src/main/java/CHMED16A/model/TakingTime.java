@@ -91,7 +91,6 @@ public class TakingTime {
         private double doTo;
         private double a;
         private double mA;
-        private TakingTimeListBuilder takingTimeListBuilder;
 
         private Builder() {
         }
@@ -127,8 +126,8 @@ public class TakingTime {
         }
 
         public TakingTimeListBuilder addTakingTimeToList() {
-            this.takingTimeListBuilder.addTakingTime(this.build());
-            return this.takingTimeListBuilder;
+            this.parent.addTakingTime(this.build());
+            return this.parent;
         }
 
         public TakingTime build() {

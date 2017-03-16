@@ -1,12 +1,14 @@
 package CHMED16A.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import CHMED16A.builder.MeasurementListBuilder;
 import CHMED16A.builder.NestedBuilder;
 import CHMED16A.builder.PrivateFieldListBuilder;
 import CHMED16A.builder.RiskCategoryListBuilder;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-import java.util.List;
 
 public class MedicalData {
 	
@@ -105,6 +107,16 @@ public class MedicalData {
 			return this;
 		}
 		
+		public Builder withRiskCategoryListBuilder(RiskCategoryListBuilder rG) {
+			this.rG = rG.build();
+			return this;
+		}
+		
+		public Builder withArrayList(ArrayList<RiskCategory> rG) {
+			this.rG = rG;
+			return this;
+		}
+		
 		public RiskCategoryListBuilder addRiskCategories() {			
 			return RiskCategoryListBuilder.newBuilder().withParentBuilder(this);
 		}
@@ -114,7 +126,7 @@ public class MedicalData {
 		}
 		
 		public PrivateFieldListBuilder addPrivateFields() {
-			return PrivateFieldListBuilder.newBuilder();
+			return PrivateFieldListBuilder.newBuilder().withParentBuilder(this);
 		}
 
 		public MedicalData build() {

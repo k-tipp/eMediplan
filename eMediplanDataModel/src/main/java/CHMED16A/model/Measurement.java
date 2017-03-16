@@ -49,7 +49,6 @@ public class Measurement {
 		private int type;
 		private String val;
 		private int unit;
-		private MeasurementListBuilder measurementListBuilder;
 
 		private Builder() {
 		}
@@ -70,8 +69,8 @@ public class Measurement {
 		}
 
 		public MeasurementListBuilder addMeasurementToList() {
-			this.measurementListBuilder.addMeasurement(this.build());
-			return this.measurementListBuilder;
+			this.parent.addMeasurement(this.build());
+			return this.parent;
 		}
 
 		public Measurement build() {

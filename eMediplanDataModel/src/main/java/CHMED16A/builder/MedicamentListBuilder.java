@@ -28,6 +28,8 @@ public class MedicamentListBuilder extends NestedBuilder<Medication.Builder, Lis
 	}
 
 	public MedicamentListBuilder addMedicament(Medicament medicament) {
+		if(this.medicamentList == null)
+			withNewList();
 		this.medicamentList.add(medicament);
 		return this;
 	}

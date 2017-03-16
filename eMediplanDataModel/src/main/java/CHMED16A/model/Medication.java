@@ -10,6 +10,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -175,8 +176,13 @@ public class Medication {
         }
 
         public MedicamentListBuilder addMedicaments() {
-            MedicamentListBuilder builder = MedicamentListBuilder.newBuilder();
+            MedicamentListBuilder builder = MedicamentListBuilder.newBuilder().withParentBuilder(this);
             return builder;
+        }
+        
+        public Builder withArrayList(ArrayList<Medicament> medications) {
+        	medicaments = medications;
+        	return this;
         }
 
         public Builder addPrivateFields(List<PrivateField> pFields) {
@@ -214,7 +220,7 @@ public class Medication {
         }
 
         public RecommendationListBuilder addRecommendations() {
-            return RecommendationListBuilder.newBuilder();
+            return RecommendationListBuilder.newBuilder().withParentBuilder(this);
         }
 
         public Builder validatedBy(String valBy) {

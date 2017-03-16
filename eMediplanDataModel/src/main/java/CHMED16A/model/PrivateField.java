@@ -50,7 +50,6 @@ public class PrivateField {
 		private String nm;
 		private String val;
 		private List<PrivateField> pFields;
-		private PrivateFieldListBuilder privateFieldListBuilder;
 
 		private Builder() {
 		}
@@ -71,8 +70,8 @@ public class PrivateField {
 		}
 
 		public PrivateFieldListBuilder addPrivateFieldToList() {
-			this.privateFieldListBuilder.addPrivateField(this.build());
-			return this.privateFieldListBuilder;
+			this.parent.addPrivateField(this.build());
+			return this.parent;
 		}
 
 		public PrivateField build() {

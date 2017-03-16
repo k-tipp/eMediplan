@@ -91,9 +91,8 @@ public class Posology {
         private String dtTo;
         private int cyDu;
         private int inRes;
-        private List<Integer> d  = new ArrayList<>();
-        private List<TakingTime> tT = new ArrayList<>();
-        private PosologyListBuilder posologyListBuilder;
+        private List<Integer> d;
+        private List<TakingTime> tT;
 
         private Builder() {
         }
@@ -112,8 +111,15 @@ public class Posology {
             this.cyDu = cyDu;
             return this;
         }
+        
+        public Builder withArrayList(ArrayList<Integer> d) {
+        	this.d = d;
+        	return this;
+        }
 
         public Builder addSimplifiedTakingTimeDose(int d) {
+        	if(this.d == null)
+        		withArrayList(new ArrayList<Integer>());
             this.d.add(d);
             return this;
         }
@@ -122,8 +128,8 @@ public class Posology {
         }
 
         public PosologyListBuilder addPosologyToList() {
-            this.posologyListBuilder.addPosology(this.build());
-            return this.posologyListBuilder;
+            this.parent.addPosology(this.build());
+            return this.parent;
         }
 
         public Posology build() {

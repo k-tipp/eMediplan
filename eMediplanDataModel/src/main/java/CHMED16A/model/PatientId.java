@@ -43,7 +43,6 @@ public class PatientId {
 	public static final class Builder extends NestedBuilder<PatientIdListBuilder, PatientId> {
 		private int type;
 		private String val;
-		private PatientIdListBuilder patientIdListBuilder;
 
 		private Builder() {
 		}
@@ -59,8 +58,8 @@ public class PatientId {
 		}
 
 		public PatientIdListBuilder addPatientIdToList() {
-			this.patientIdListBuilder.addPatientId(this.build());
-			return this.patientIdListBuilder;
+			this.parent.addPatientId(this.build());
+			return this.parent;
 		}
 
 		public PatientId build() {

@@ -27,8 +27,10 @@ public class PosologyListBuilder extends NestedBuilder<Medicament.Builder, List<
 		return this;
 	}
 
-	public PosologyListBuilder addPosology(Posology posologyList) {
-		this.posologyList.add(posologyList);
+	public PosologyListBuilder addPosology(Posology posology) {
+		if(this.posologyList == null)
+			withNewList();
+		this.posologyList.add(posology);
 		return this;
 	}
 

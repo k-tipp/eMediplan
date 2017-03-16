@@ -27,8 +27,10 @@ public class MeasurementListBuilder extends NestedBuilder<MedicalData.Builder, L
 		return this;
 	}
 
-	public MeasurementListBuilder addMeasurement(Measurement riskCategory) {
-		this.measurementList.add(riskCategory);
+	public MeasurementListBuilder addMeasurement(Measurement measurement) {
+		if(this.measurementList == null)
+			withNewList();
+		this.measurementList.add(measurement);
 		return this;
 	}
 
