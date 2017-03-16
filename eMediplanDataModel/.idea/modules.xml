@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/eMediplanDataModel.iml" filepath="$PROJECT_DIR$/eMediplanDataModel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eMediplanDataModel.iml" filepath="$PROJECT_DIR$/.idea/modules/eMediplanDataModel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eMediplanDataModel_main.iml" filepath="$PROJECT_DIR$/.idea/modules/eMediplanDataModel_main.iml" group="eMediplanDataModel" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eMediplanDataModel_test.iml" filepath="$PROJECT_DIR$/.idea/modules/eMediplanDataModel_test.iml" group="eMediplanDataModel" />
     </modules>
   </component>
 </project>

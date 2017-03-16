@@ -1,12 +1,12 @@
 package CHMED16A.model;
 
-import java.util.List;
-
 import CHMED16A.builder.MeasurementListBuilder;
 import CHMED16A.builder.NestedBuilder;
 import CHMED16A.builder.PrivateFieldListBuilder;
 import CHMED16A.builder.RiskCategoryListBuilder;
-import CHMED16A.interfaces.IPrivateFieldsOwner;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import java.util.List;
 
 public class MedicalData {
 	
@@ -78,7 +78,8 @@ public class MedicalData {
 		return new Builder();
 	}
 
-	public static final class Builder extends NestedBuilder<Patient.Builder, MedicalData> implements IPrivateFieldsOwner<Patient.Builder> {
+	@JsonIgnoreProperties
+	public static final class Builder extends NestedBuilder<Patient.Builder, MedicalData> {
 		private String dLstMen;
 		private int prem;
 		private String toG;
@@ -112,8 +113,8 @@ public class MedicalData {
 			return MeasurementListBuilder.newBuilder().withParentBuilder(this);
 		}
 		
-		public PrivateFieldListBuilder addPrivateFields() {			
-			return PrivateFieldListBuilder.newBuilder().withParentBuilder(this);
+		public PrivateFieldListBuilder addPrivateFields() {
+			return PrivateFieldListBuilder.newBuilder();
 		}
 
 		public MedicalData build() {

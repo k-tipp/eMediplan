@@ -1,320 +1,240 @@
 package CHMED16A.model;
 
-import java.util.Collections;
-import java.util.Iterator;
+import CHMED16A.builder.MedicamentListBuilder;
+import CHMED16A.builder.NestedBuilder;
+import CHMED16A.builder.RecommendationListBuilder;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+
+import java.io.IOException;
 import java.util.List;
+
 
 public class Medication {
 
+    @JsonProperty("Patient")
     private Patient patient;
+    @JsonProperty("Medicaments")
     private List<Medicament> medicaments;
+    @JsonProperty("Recoms")
     private List<Recommendation> recoms;
+    @JsonProperty("PFields")
     private List<PrivateField> pFields;
+    @JsonProperty("PSchema")
     private String pSchema;
+    @JsonProperty("MedType")
     private int medType;
+    @JsonProperty("Id")
     private String id;
+    @JsonProperty("Auth")
     private String auth;
+    @JsonProperty("Zsr")
     private String zsr;
+    @JsonProperty("Dt")
     private String dt;
+    @JsonProperty("Rmk")
     private String rmk;
+    @JsonProperty("ValBy")
     private String valBy;
+    @JsonProperty("ValDt")
     private String valDt;
 
-    public Medication(Patient patient, int medType, String id, String auth, String dt) {
-        this.patient = patient;
-        this.medType = medType;
-        this.id = id;
+    public Medication(Builder builder) {
+        this.patient = builder.patient;
+        this.medicaments = builder.medicaments;
+        this.recoms = builder.recoms;
+        this.pFields = builder.pFields;
+        this.pSchema = builder.pSchema;
+        this.medType = builder.medType;
+        this.id = builder.id;
         this.auth = auth;
-        this.dt = dt;
+        this.zsr = builder.zsr;
+        this.dt = builder.dt;
+        this.rmk = builder.rmk;
+        this.valBy = builder.valBy;
+        this.valDt = builder.valDt;
     }
+
+    public String serialize() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
+
+        return mapper.defaultPrettyPrintingWriter().writeValueAsString(this);
+    }
+
 
     public Patient getPatient() {
         return patient;
     }
-
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-
     public List<Medicament> getMedicaments() {
         return medicaments;
     }
-
     public void setMedicaments(List<Medicament> medicaments) {
         this.medicaments = medicaments;
     }
-
     public List<Recommendation> getRecoms() {
         return recoms;
     }
-
     public void setRecoms(List<Recommendation> recoms) {
         this.recoms = recoms;
     }
-
     public List<PrivateField> getpFields() {
         return pFields;
     }
-
     public void setpFields(List<PrivateField> pFields) {
         this.pFields = pFields;
     }
-
     public String getPSchema() {
         return pSchema;
     }
-
     public void setPSchema(String pSchema) {
         this.pSchema = pSchema;
     }
-
     public int getMedType() {
         return medType;
     }
-
     public void setMedType(int medType) {
         this.medType = medType;
     }
-
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public String getAuth() {
         return auth;
     }
-
     public void setAuth(String auth) {
         this.auth = auth;
     }
-
     public String getZsr() {
         return zsr;
     }
-
     public void setZsr(String zsr) {
         this.zsr = zsr;
     }
-
     public String getDt() {
         return dt;
     }
-
     public void setDt(String dt) {
         this.dt = dt;
     }
-
     public String getRmk() {
         return rmk;
     }
-
     public void setRmk(String rmk) {
         this.rmk = rmk;
     }
-
     public String getValBy() {
         return valBy;
     }
-
     public void setValBy(String valBy) {
         this.valBy = valBy;
     }
-
     public String getValDt() {
         return valDt;
     }
-
     public void setValDt(String valDt) {
         this.valDt = valDt;
     }
 
-    public static final class MedicationPlanBuilder {
-        private Patient patient;
+    @JsonIgnore
+    public static Builder newBuilder() { return new Builder(); }
+
+    @JsonIgnoreProperties
+    public static final class Builder extends NestedBuilder<Builder, Medication> {
+        private  Patient patient;
         private List<Medicament> medicaments;
         private List<PrivateField> pFields;
         private String pSchema;
-        private static final int medType = 1;
         private String id;
         private String auth;
         private String dt;
+        private int medType;
         private String rmk;
         private String valBy;
         private String valDt;
+        private List<Recommendation> recoms;
+        private String zsr;
 
-        private MedicationPlanBuilder() {}
+        public Patient.Builder withPatient() {
+            return Patient.newBuilder().withParentBuilder(this);
+        }
 
-        private MedicationPlanBuilder forPatient(Patient patient) {
+        public Builder withPatient(Patient patient) {
             this.patient = patient;
             return this;
         }
 
-        private MedicationPlanBuilder addMedicaments(List<Medicament> medicaments) {
-            this.medicaments = medicaments;
-            return this;
+        public MedicamentListBuilder addMedicaments() {
+            MedicamentListBuilder builder = MedicamentListBuilder.newBuilder();
+            return builder;
         }
 
-        private MedicationPlanBuilder withPrivateFields(List<PrivateField> pFields) {
+        public Builder addPrivateFields(List<PrivateField> pFields) {
             this.pFields = pFields;
             return this;
         }
 
-        private MedicationPlanBuilder withSchemas(List<String> pSchemas) {
-            this.pSchema = pSchema;
-            return this;
-        }
+/*        public StringListBuilder withSchemas() {
+            return StringListBuilder.newBuilder();
+        }*/
 
-        private MedicationPlanBuilder withId(String id) {
+        public Builder withId(String id) {
             this.id = id;
             return this;
         }
 
-        private MedicationPlanBuilder withAuth(String auth) {
+        public Builder withMedType(int medType) {
+            this.medType = medType;
+            return this;
+        }
+
+        public Builder withAuth(String auth) {
             this.auth = auth;
             return this;
         }
 
-        private MedicationPlanBuilder setDate(String date) {
+        public Builder setDate(String date) {
             this.dt = date;
             return this;
         }
 
-        private MedicationPlanBuilder setRemark(String remarks) {
+         public Builder setRemark(String remarks) {
             this.rmk = remarks;
             return this;
         }
 
-        private MedicationPlanBuilder validatedBy(String valBy) {
+        public RecommendationListBuilder addRecommendations() {
+            return RecommendationListBuilder.newBuilder();
+        }
+
+        public Builder validatedBy(String valBy) {
             this.valBy = valBy;
             return this;
         }
 
-        private MedicationPlanBuilder validationDate(String valDt) {
+        public Builder validationDate(String valDt) {
             this.valDt = valDt;
             return this;
         }
-    }
 
-    public static final class PolymedicationCheckBuilder {
-        private Patient patient;
-        private List<Medicament> medicaments;
-        private List<Recommendation> recoms;
-        private List<PrivateField> pFields;
-        private String pSchema;
-        private static final int medType = 2;
-        private String id;
-        private String auth;
-        private String dt;
-        private String valBy;
-        private String valDt;
-
-        private PolymedicationCheckBuilder() {}
-
-        private PolymedicationCheckBuilder forPatient(Patient patient) {
-            this.patient = patient;
+        public Builder setZSR(String zsr) {
+            this.zsr = zsr;
             return this;
         }
 
-        private PolymedicationCheckBuilder addMedicaments(List<Medicament> medicaments) {
-            this.medicaments = medicaments;
-            return this;
+        public Medication build() {
+            return new Medication(this);
         }
 
-        private PolymedicationCheckBuilder addRecoms(List<Recommendation> recoms) {
-            this.recoms = recoms;
-            return this;
-        }
-
-        private PolymedicationCheckBuilder withPrivateFields(List<PrivateField> pFields) {
-            this.pFields = pFields;
-            return this;
-        }
-
-        private PolymedicationCheckBuilder withSchema(String pSchemas) {
-            this.pSchema = pSchemas;
-            return this;
-        }
-
-        private PolymedicationCheckBuilder withId(String id) {
-            this.id = id;
-            return this;
-        }
-
-        private PolymedicationCheckBuilder withAuth(String auth) {
-            this.auth = auth;
-            return this;
-        }
-
-        private PolymedicationCheckBuilder setDate(String date) {
-            this.dt = date;
-            return this;
-        }
-
-        private PolymedicationCheckBuilder validatedBy(String valBy) {
-            this.valBy = valBy;
-            return this;
-        }
-
-        private PolymedicationCheckBuilder validationDate(String valDt) {
-            this.valDt = valDt;
-            return this;
-        }
-    }
-
-    public static final class PrescriptionBuilder {
-        private Patient patient;
-        private List<Medicament> medicaments;
-        private List<PrivateField> pFields;
-        private String pSchema;
-        private static final int medType = 2;
-        private String id;
-        private String auth;
-        private String dt;
-        private String rmk;
-
-        private PrescriptionBuilder() {}
-
-        private PrescriptionBuilder forPatient(Patient patient) {
-            this.patient = patient;
-            return this;
-        }
-
-        private PrescriptionBuilder addMedicaments(List<Medicament> medicaments) {
-            this.medicaments = medicaments;
-            return this;
-        }
-
-        private PrescriptionBuilder withPrivateFields(List<PrivateField> pFields) {
-            this.pFields = pFields;
-            return this;
-        }
-
-        private PrescriptionBuilder withSchema(String pSchema) {
-            this.pSchema = pSchema;
-            return this;
-        }
-
-        private PrescriptionBuilder withId(String id) {
-            this.id = id;
-            return this;
-        }
-
-        private PrescriptionBuilder withAuth(String auth) {
-            this.auth = auth;
-            return this;
-        }
-
-        private PrescriptionBuilder setDate(String date) {
-            this.dt = date;
-            return this;
-        }
-
-        private PrescriptionBuilder setRemark(String rmk) {
-            this.rmk = rmk;
-            return this;
-        }
     }
 }

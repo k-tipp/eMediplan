@@ -25,5 +25,8 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    compile 'junit:junit:4.12'
+    compile 'org.junit.jupiter:junit-jupiter-api'
+    compile group: 'com.fasterxml', name: 'jackson-module-json-org', version: '0.9.1'
 }
 

@@ -1,8 +1,11 @@
 package eMediplanDataModelTest;
 
+import CHMED16A.model.PrivateField;
 import org.junit.Test;
 
 import CHMED16A.model.MedicalData;
+
+import java.util.ArrayList;
 
 public class MedicalDataTest {
 	@Test
@@ -22,12 +25,12 @@ public class MedicalDataTest {
 				.addPrivateFields()
 					.addPrivateField().withName("test").withValue("value").addPrivateFieldToList()
 					.addPrivateField().withName("test2")
-						.addPrivateFields()
-							.addPrivateField().withName("child1").withValue("val1").addPrivateFieldToList()
-							.addPrivateField().withName("child2").withValue("val2").addPrivateFieldToList()
-						.done()
-					.done()
-				.build();
+                        .addPrivateFields(new ArrayList<PrivateField>() {{
+                            add(PrivateField.newBuilder().withName("child3").withValue("val3").addPrivateFields(new ArrayList<PrivateField>()).build());
+                        }})
+                    .addPrivateFieldToList()
+                .done()
+                .build();
 	}
 
 }

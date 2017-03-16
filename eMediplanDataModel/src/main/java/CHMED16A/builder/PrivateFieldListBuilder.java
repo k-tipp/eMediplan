@@ -1,12 +1,11 @@
 package CHMED16A.builder;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import CHMED16A.interfaces.IPrivateFieldsOwner;
+import CHMED16A.model.MedicalData;
 import CHMED16A.model.PrivateField;
 
-public class PrivateFieldListBuilder extends NestedBuilder<IPrivateFieldsOwner<? extends NestedBuilder<?,?>>, List<PrivateField>>{
+import java.util.ArrayList;
+import java.util.List;
+public class PrivateFieldListBuilder extends NestedBuilder<MedicalData.Builder, List<PrivateField>>{
 
 	private List<PrivateField> privateFieldList;
 

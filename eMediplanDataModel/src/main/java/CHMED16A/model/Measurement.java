@@ -2,6 +2,7 @@ package CHMED16A.model;
 
 import CHMED16A.builder.MeasurementListBuilder;
 import CHMED16A.builder.NestedBuilder;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 public class Measurement {
 	
@@ -43,6 +44,7 @@ public class Measurement {
 		return new Builder();
 	}
 
+	@JsonIgnoreProperties
     public static final class Builder extends NestedBuilder<MeasurementListBuilder, Measurement> {
 		private int type;
 		private String val;

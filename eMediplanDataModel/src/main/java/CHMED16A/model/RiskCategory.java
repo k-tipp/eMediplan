@@ -2,16 +2,20 @@ package CHMED16A.model;
 
 import CHMED16A.builder.NestedBuilder;
 import CHMED16A.builder.RiskCategoryListBuilder;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
-import java.util.Collection;
+import java.util.List;
 
 public class RiskCategory {
 
+	@JsonProperty("Id")
 	private int id;
 
-	private Collection<Integer> r;
+	@JsonProperty("R")
+	private List<Integer> r;
 
-	public RiskCategory(Builder builder) {
+	private RiskCategory(Builder builder) {
 		this.id = builder.id;
 		this.r = builder.r;
 	}
@@ -24,11 +28,11 @@ public class RiskCategory {
 		this.id = id;
 	}
 
-	public Collection<Integer> getR() {
+	public List<Integer> getR() {
 		return r;
 	}
 
-	public void setR(Collection<Integer> r) {
+	public void setR(List<Integer> r) {
 		this.r = r;
 	}
 
@@ -36,9 +40,10 @@ public class RiskCategory {
 		return new Builder();
 	}
 
+	@JsonIgnoreProperties
 	public static final class Builder extends NestedBuilder<RiskCategoryListBuilder, RiskCategory> {
 		private int id;
-		private Collection<Integer> r;
+		private List<Integer> r;
 		private RiskCategoryListBuilder riskCategoryListBuilder;
 
 		private Builder() {

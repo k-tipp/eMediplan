@@ -2,14 +2,17 @@ package CHMED16A.model;
 
 import CHMED16A.builder.NestedBuilder;
 import CHMED16A.builder.PrivateFieldListBuilder;
-import CHMED16A.interfaces.IPrivateFieldsOwner;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import java.util.List;
 
 public class PrivateField {
+
 	private String nm;
 	private String val;
-	private Iterable<PrivateField> pFields;
+	private List<PrivateField> pFields;
 	
-	public PrivateField(Builder builder) {
+	private PrivateField(Builder builder) {
 		this.nm = builder.nm;
 		this.val = builder.val;
 	}
@@ -30,21 +33,23 @@ public class PrivateField {
 		this.val = val;
 	}
 
-	public Iterable<PrivateField> getpFields() {
+	public List<PrivateField> getPrivateFields() {
 		return pFields;
 	}
 
-	public void setpFields(Iterable<PrivateField> pFields) {
+	public void setPrivateFields(List<PrivateField> pFields) {
 		this.pFields = pFields;
 	}
-	
+
 	public static Builder newBuilder() {
 		return new Builder();
 	}
-	
-	public static final class Builder extends NestedBuilder<PrivateFieldListBuilder, PrivateField> implements IPrivateFieldsOwner<PrivateFieldListBuilder> {
+
+	@JsonIgnoreProperties
+	public static final class Builder extends NestedBuilder<PrivateFieldListBuilder, PrivateField> {
 		private String nm;
 		private String val;
+		private List<PrivateField> pFields;
 		private PrivateFieldListBuilder privateFieldListBuilder;
 
 		private Builder() {
@@ -59,11 +64,11 @@ public class PrivateField {
 			this.val = val;
 			return this;
 		}
-
-		public PrivateFieldListBuilder addPrivateFields() {			
-			return PrivateFieldListBuilder.newBuilder().withParentBuilder(this);
+		// ToDo: Find a better solution to add nested private fields
+		public Builder addPrivateFields(List<PrivateField> pFields) {
+			this.pFields = pFields;
+			return this;
 		}
-
 
 		public PrivateFieldListBuilder addPrivateFieldToList() {
 			this.privateFieldListBuilder.addPrivateField(this.build());

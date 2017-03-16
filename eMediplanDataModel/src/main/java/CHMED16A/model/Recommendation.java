@@ -1,8 +1,16 @@
 package CHMED16A.model;
 
+import CHMED16A.builder.NestedBuilder;
+import CHMED16A.builder.RecommendationListBuilder;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Recommendation {
+    @JsonProperty("Id")
     private String id;
+    @JsonProperty("PatAgr")
     private int patAgr;
+    @JsonProperty("Rmk")
     private String rmk;
 
     private Recommendation(Builder builder) {
@@ -15,35 +23,31 @@ public class Recommendation {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public int getPatAgr() {
         return patAgr;
     }
-
     public void setPatAgr(int patAgr) {
         this.patAgr = patAgr;
     }
-
     public String getRmk() {
         return rmk;
     }
-
     public void setRmk(String rmk) {
         this.rmk = rmk;
     }
-
     public static Builder newBuilder() {
         return new Builder();
     }
 
-    public static final class Builder extends NestedBuilder<Medication.Builder, Measurement> {
+    @JsonIgnoreProperties
+    public static final class Builder extends NestedBuilder<RecommendationListBuilder, Recommendation> {
         private String id;
         private int patAgr;
         private String rmk;
+        private RecommendationListBuilder recommendationListBuilder;
 
         private Builder() {
         }
@@ -63,6 +67,9 @@ public class Recommendation {
             return this;
         }
 
+        public RecommendationListBuilder addRecommendationToList() {
+            return this.recommendationListBuilder;
+        }
 
         public Recommendation build() {
             return new Recommendation(this);

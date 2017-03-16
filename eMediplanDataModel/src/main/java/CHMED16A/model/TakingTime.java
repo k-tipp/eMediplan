@@ -1,15 +1,25 @@
 package CHMED16A.model;
 
 import CHMED16A.builder.NestedBuilder;
+import CHMED16A.builder.TakingTimeListBuilder;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 public class TakingTime {
-	
+
+    @JsonProperty("Off")
     private int off;
+    @JsonProperty("Du")
     private int du;
+    @JsonProperty("DoFrom")
     private double doFrom;
+    @JsonProperty("DoTo")
     private double doTo;
+    @JsonProperty("A")
     private double a;
+    @JsonProperty("MA")
     private double mA;
+
 
     private TakingTime(Builder builder) {
         this.off = builder.off;
@@ -73,14 +83,15 @@ public class TakingTime {
 	}
 
 
-
-	public static final class Builder extends NestedBuilder<Posology.Builder, TakingTime> {
+    @JsonIgnoreProperties
+	public static final class Builder extends NestedBuilder<TakingTimeListBuilder, TakingTime> {
         private int off;
         private int du;
         private double doFrom;
         private double doTo;
         private double a;
         private double mA;
+        private TakingTimeListBuilder takingTimeListBuilder;
 
         private Builder() {
         }
@@ -115,6 +126,10 @@ public class TakingTime {
             return this;
         }
 
+        public TakingTimeListBuilder addTakingTimeToList() {
+            this.takingTimeListBuilder.addTakingTime(this.build());
+            return this.takingTimeListBuilder;
+        }
 
         public TakingTime build() {
             return new TakingTime(this);
